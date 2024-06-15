@@ -35,8 +35,7 @@ COPY default.conf /etc/apache2/sites-available/000-default.conf
 # Remove default content (existing index.html)
 RUN rm /var/www/html/*
 
-
-COPY starterkit /var/www/html
+# COPY starterkit /var/www/html
 
 RUN chown -R www-data:www-data /var/www/html/
 
