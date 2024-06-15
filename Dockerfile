@@ -31,15 +31,21 @@ RUN apt-get update && apt-get install -y \
 # Copy virtual host configuration from current path onto existing 000-default.conf
 COPY default.conf /etc/apache2/sites-available/000-default.conf
 
+
 # Remove default content (existing index.html)
 RUN rm /var/www/html/*
+
+
+COPY starterkit /var/www/html
+
+RUN chown -R www-data:www-data /var/www/html/
 
 # Activate Apache modules headers & rewrite
 RUN a2enmod headers rewrite
 
 # Change web server's user id to match local user.
-COPY entrypoint.sh /usr/local/bin/
-ENTRYPOINT ["entrypoint.sh"]
+# COPY entrypoint.sh /usr/local/bin/
+# ENTRYPOINT ["entrypoint.sh"]
 
 # Tell container to listen to port 80 at runtime
 EXPOSE 80
